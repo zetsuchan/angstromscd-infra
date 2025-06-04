@@ -116,6 +116,9 @@ docker-compose up -d
 # Verify services are running
 docker-compose ps
 
+# Or use helper script
+./scripts/verify-services.sh
+
 # Check service logs
 docker-compose logs postgres
 docker-compose logs chromadb
@@ -125,6 +128,9 @@ psql -h localhost -p 5432 -U postgres -d angstromscd
 
 # Test ChromaDB connection
 curl http://localhost:8000/api/v1/heartbeat
+
+# Run connectivity checks
+./scripts/test-connections.sh
 ```
 
 ### Service Health Checks
@@ -144,7 +150,7 @@ docker stats angstromscd-postgres angstromscd-chromadb
 
 ### Environment Variables
 
-Create `.env` file for custom configuration:
+Copy `.env.example` to `.env` and adjust values for custom configuration:
 
 ```env
 # PostgreSQL Configuration
@@ -209,6 +215,12 @@ cd scripts/
 
 # Create development users
 ./create-dev-users.sh
+
+# Verify running containers
+./verify-services.sh
+
+# Test database connections
+./test-connections.sh
 ```
 
 ### ChromaDB Collections Setup
